@@ -2,7 +2,6 @@
 
 
 ## TOC
-* [INFO](#info)
 * [istruzioni](#istruzioni)
 * [pure html](#versione-pure-html)
 * [versione JS](#versione-con-javascript)
