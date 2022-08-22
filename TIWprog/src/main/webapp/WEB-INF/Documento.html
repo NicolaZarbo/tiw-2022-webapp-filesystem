@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Documento</title>
+
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/ImpostazionePagina.css" th:href="@{/css/ImpostazionePagina.css}" />
+	<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/Documento.css" th:href="@{/css/Documento.css}" />
+	
+</head>
+<body>
+<div class="topZone">
+	<a class="topButton" href="./Documenti.html" th:href="@{/Documenti(subCartellaId=${subCartellaId},cartellaId=${cartellaId}, nSubCartella=${nSubCartella})}" >torna indietro</a>
+	<a class="topButton" th:href="@{/logout}"th:text="${'logout  ('+ session.user+')'}">Logout (user)</a>
+<a class="topButton" th:href="@{${lastPage}(back='true')}">Go back</a>	
+</div>
+
+
+<div class="fZone">
+	<h1 th:text="${'FILE :'+file.fileName}">FILE : Documento X</h1>
+	<div id="funnyLine"></div>
+	<p th:text="${'MIME :'+file.mime}">MIME : xx/xxx</p>
+	<p th:text="${'Data Creazione :'+file.dataCreazione}">Data Creazione : 0000/00/00</p>
+</div>	
+	
+</body>
+</html>

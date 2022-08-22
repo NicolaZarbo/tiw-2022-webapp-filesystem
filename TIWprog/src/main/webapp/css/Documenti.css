@@ -1,0 +1,38 @@
+@charset "ISO-8859-1";
+.fContainer {
+    padding: 16vw;
+    padding-top: 5vh;
+    padding-left: 10vw;
+}
+.cartDiv {
+    box-shadow: 0 0 6px 1px grey;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+div.cartDiv > ul {
+    margin-left: 5vw;
+}
+li.fileCon > p {
+    font-size: x-large;
+}
+li.fileCon {
+    box-shadow: 0 0 6px 1px grey;
+    padding: 36px;
+    padding-top: 1px;
+    padding-right: 83px;
+    margin-bottom: 14px;
+    border-radius: 7px;
+    background-color: aliceblue;
+    width: fit-content;
+}
+a.fileButton {
+    box-shadow: inset 0 0 5px 3px gainsboro;
+    padding: 13px;
+    font-size: x-large;
+    border: solid 1px gray;
+    text-decoration: none;
+}
+a.fileButton:hover {
+    background-color: lightslategrey;
+    color: lightblue;
+}

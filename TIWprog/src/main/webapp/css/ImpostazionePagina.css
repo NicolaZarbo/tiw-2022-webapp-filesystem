@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+}
+.topZone {
+    height: 8vh;
+    box-shadow: 0 0 5px 3px #acacac;
+    align-content: stretch;
+    display: flex;
+    font-size: xx-large;
+    padding-left: 9vw;
+    padding-right: 9vw;
+    justify-content: center;
+    position: sticky;
+    background-color: whitesmoke;
+    top: 0;
+}
+
+.topButton {
+    padding: 14px;
+ 	box-shadow: inset 0 0 5px 1px #3d83c1;
+    border: solid 1px gray;
+    border-right: solid 3px;
+    background-color: lightsteelblue;
+    text-decoration:none;
+}
+a.topButton:hover {
+    background-color: lightslategrey;
+    color: lightblue;
+    box-shadow: inset 0 0 5px 1px #3d83c1;
+}
+h1{
+	font-size:xxx-large;
+}

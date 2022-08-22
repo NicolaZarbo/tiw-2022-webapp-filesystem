@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Documenti</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/ImpostazionePagina.css" th:href="@{/css/ImpostazionePagina.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/Documenti.css" th:href="@{/css/Documenti.css}" />
+
+
+</head>
+<body>
+
+<div class="topZone">
+	<a class="topButton" href="./HomePage.html" th:href="@{/HomePage}">torna a homepage</a>
+	<a class="topButton" th:text="${'logout  ('+ session.user+')'}" th:href="@{/logout}">Logout (user)</a>
+		<a class="topButton" th:href="@{${lastPage}(back='true')}">Go back</a>
+	
+</div>
+<div class="fContainer">
+	
+	<div class="cartDiv">
+		
+		<h1 th:text="${'Sub-Cartella ' + nSubCartella }"> Sub-Cartella x</h1>
+		<h2 th:if="files==null " >There are no files</h2>
+		
+		<ul th:if="${files!=null}" th:remove="all-but-first" >
+			<li class="fileCon" th:each="file : ${files}" >
+					<p th:text="${file.filename}"> file x</p>
+					<a class="fileButton" href="./Documento.html" th:href="@{/AccediDocumento(fileId=${file.fileId})}">>accedi  </a>
+					<a class="fileButton" href="./Documento.html" th:href="@{/HomePage(fileId=${file.fileId}, spostamento=true)}">>sposta</a>
+			</li>
+			<li class="fileCon" >
+					<p > file 2</p>
+					<a class="fileButton" href="./Documento.html"> >accedi  </a>
+					<a class="fileButton" href="./Documento.html"> >sposta  </a>
+			</li>
+			<li class="fileCon" >
+					<p > file 3</p>
+					<a class="fileButton" href="./Documento.html"> >accedi  </a>
+					<a class="fileButton" href="./Documento.html"> >sposta  </a>
+			</li>
+			
+		
+		</ul>
+	
+	</div>
+</div>
+</body>
+</html>

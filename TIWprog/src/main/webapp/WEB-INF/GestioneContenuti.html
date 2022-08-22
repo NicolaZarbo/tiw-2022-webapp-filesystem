@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/ImpostazionePagina.css" th:href="@{/css/ImpostazionePagina.css}" />
+	<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/GestioneCont.css" th:href="@{/css/GestioneCont.css}" />
+<title>Gestione Contenuti</title>
+
+</head>
+<body>
+
+<div class=topZone>
+	<a class="topButton" th:href="@{/HomePage}" href="./HomePage.html">Torna a HomePage</a>
+<a class="topButton" th:href="@{${lastPage}(back='true')}">Go back</a>	
+</div>
+
+
+
+
+
+
+
+<div class="cont" >
+	<h1>Gestione contenuti</h1>
+	
+		<a class="createButton" th:href="@{/CreaCartella}">Crea Cartella</a>
+		<br>
+	<div  th:if="${cartelle!=null}">
+		<ul th:remove="all-but-first" >
+			<li class="cartelle" th:each="cartella, cStat:${cartelle}" >
+				<p th:text="${'Cartella '+cStat.count }">Cartella x</p>
+				<a class="createButton" th:href="@{/CreaSottoCartella(cartellaId=${cartella.CartellaId})}" >Crea Nuova Sotto-Cartella</a>
+			   <ul th:if="${cartella.subCartelle!=null}">
+			   	<li class="subCartella" th:each="sub, bStat : ${cartella.subCartelle}">
+			   	  <a class="createButton" href="./FileCreation.html" th:href="@{/CreaFile(subCartella=${sub})}  " th:text="${'crea file in sottoCartella '+bStat.count+''+cStat.count }"> 
+			   	  Crea File in sub-cartella 11</a>
+			   	</li>
+			   </ul>
+			</li>
+			<li class="cartelle">
+				<p >Cartella 2</p>
+				<a class="createButton"  >Crea Nuova Sotto-Cartella</a>
+			   <ul >
+			   	<li class="subCartella" >
+			   	  <a href="./FileCreation.html" class="createButton">Crea File in sub-cartella 21
+			   	  </a>
+			   	</li>
+			   </ul>
+			</li>
+			<li class="cartelle">
+				<p >Cartella 3</p>
+				<a class="createButton"  >Crea Nuova Sotto-Cartella</a>
+			</li>
+		</ul>
+		</div>
+</div>
+
+
+</body>
+</html>

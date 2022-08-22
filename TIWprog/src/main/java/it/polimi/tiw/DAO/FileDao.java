@@ -5,24 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import it.polimi.tiw.beans.File;
-import it.polimi.tiw.utlli.DbConnection;
  
 public class FileDao {
 
 	private Connection connesione;
 	
-	public FileDao() {
-		connesione=DbConnection.getConnection();
+	public FileDao(Connection connesione) {
+		this.connesione=connesione;
 	}
-	/**
-	 * 
-	 * @param fileId 
-	 * @return oggetto file 
-	 * @throws SQLException
-	 */
+	public void chiudi() throws SQLException {
+		connesione.close();
+	}
 	public File getFile(int fileId) throws SQLException {
 		String query = "SELECT * FROM file WHERE idfile = ?";
 		
@@ -38,13 +35,22 @@ public class FileDao {
 					file.setDataCreazione(result.getDate("dataCreazione"));
 					file.setFileName(result.getString("fileName"));
 					//file.setOwnerId(result.getInt("ownerId"));
-					file.setSummary(result.getString("summary"));
+					file.setMime(result.getString("summary"));
 					file.setSubCartellaId(result.getInt("idSubCartella"));
 					file.setFileId(fileId);
 					return file;
 				}
 			}
 		}	
+	}
+	public boolean esisteInCartella(String Name , int subCartellaId) throws SQLException {
+		String query = "SELECT * FROM file WHERE file.fileName=? AND file.idSubCartella =?";
+		PreparedStatement pstatement = connesione.prepareStatement(query);
+		pstatement.setString(1, Name);
+		pstatement.setInt(2, subCartellaId);
+		pstatement.executeUpdate();
+		
+		return !pstatement.executeQuery().isBeforeFirst();
 	}
 	public void spostaFile(int fileID, int where) {
 		String query = "UPDATE file SET idSubCartella =? WHERE idfile = ?";
@@ -62,8 +68,8 @@ public class FileDao {
 		try (PreparedStatement pstatement = connesione.prepareStatement(query);) {
 			pstatement.setInt(1, f.getSubCartellaId());
 			pstatement.setString(2, f.getFileName());
-			pstatement.setDate(3, f.getDataCreazione());
-			pstatement.setString(4, f.getSummary());
+			pstatement.setDate(3, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+			pstatement.setString(4, f.getMime());
 			
 			pstatement.executeUpdate();
 		} catch (SQLException e) {
@@ -77,7 +83,7 @@ public class FileDao {
 				String query = "SELECT * FROM file WHERE idsubcartella = ?";
 		
 		try (PreparedStatement pstatement = connesione.prepareStatement(query);) {
-			pstatement.setString(1, subFolderId+"");
+			pstatement.setInt(1, subFolderId);
 		
 			try (ResultSet result = pstatement.executeQuery();) {
 				if (!result.isBeforeFirst()) // no results, credential check failed
@@ -85,16 +91,15 @@ public class FileDao {
 				else {
 					ArrayList<File> files=new ArrayList<File>();
 					while(result.next()) {
-					result.next();
-					File file=new File();
-					file.setDataCreazione(result.getDate("dataCreazione"));
-					file.setFileName(result.getString("fileName"));
-					//file.setOwnerId(result.getInt("ownerId"));
-					file.setSummary(result.getString("summary"));
-					file.setSubCartellaId(subFolderId);
-					file.setFileId(result.getInt(result.getInt("idfile")));
-					
-					files.add(file);
+						File file=new File();
+						file.setDataCreazione(result.getDate("dataCreazione"));
+						file.setFileName(result.getString("fileName"));
+						//file.setOwnerId(result.getInt("ownerId"));
+						file.setMime(result.getString("summary"));
+						file.setSubCartellaId(subFolderId);
+						file.setFileId(result.getInt("idfile"));
+						
+						files.add(file);
 					}
 					return files;
 				}

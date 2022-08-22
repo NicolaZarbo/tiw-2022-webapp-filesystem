@@ -7,7 +7,7 @@ public class File {
 	private int ownerId;
 	private int SubCartellaId;
 	private String fileName;
-	private String summary;//or mime type?
+	private String mime;
 	private Date dataCreazione;
 	
 	
@@ -35,11 +35,11 @@ public class File {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public String getSummary() {
-		return summary;
+	public String getMime() {
+		return mime;
 	}
-	public void setSummary(String summary) {
-		this.summary = summary;
+	public void setMime(String summary) {
+		this.mime = summary;
 	}
 	public Date getDataCreazione() {
 		return dataCreazione;

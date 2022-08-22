@@ -1,0 +1,46 @@
+@charset "ISO-8859-1";
+
+div#zonaCartelle {
+    margin: 10vw;
+    margin-top: 2vh;
+}
+.cartDiv {
+    box-shadow: 0 0 8px 2px grey;
+    padding: 15px;
+    background-color: whitesmoke;
+}
+li.cartelle {
+    font-size: larger;
+    background-color: aliceblue;
+    padding: 2px;
+    border-radius: 13px;
+    margin-bottom: 7px;
+    padding-left: 6px;
+    box-shadow: 0 0 4px 1px #4f7ed3;
+    padding-bottom: 27px;
+    width: 54vw;
+}
+li.cartelle2{
+    background-color: gainsboro;
+    box-shadow: 0 0 4px 1px #535453;
+}
+li.subCartella > a {
+    text-decoration: none;
+    box-shadow: 0 0 4px 0px #5e5ee5;
+    border: solid 1px;
+    border-radius: 2px;
+    padding: 8px;
+    
+}
+li.cartelle >p {
+    font-size: larger;
+}
+li.subCartella {
+    padding-bottom: 19px;
+    height: 25px;
+}
+
+li.subCartella > a:hover {
+    background-color: slategrey;
+    color: lightblue;
+}

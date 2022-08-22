@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Crea file</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/ImpostazionePagina.css" th:href="@{/css/ImpostazionePagina.css}" />
+	<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/Login.css" th:href="@{/css/Login.css}" />
+</head>
+<body>
+
+
+<div class="topZone">
+	<a class="topButton" th:href="@{/HomePage}" href="./HomePage.html">Torna a HomePage</a>
+	<a class="topButton" th:href="@{/GestioneContenuti}" href="./GestioneContenuti.html">Torna a Gestione Contenuti</a>
+</div>
+<div class="c2 cont ">
+	<h1>Crea File</h1>
+	<form method="post" th:action="@{/CreaFile}">
+		<label for="filename">File Name (max 15 char):</label>
+		<input pattern="[A-Za-z0-9_]{1,15}[.]{1,1}[a-z]{1,4}" type="text" id="filename" name="filename"><br><br>
+		<label for="mime">Select the appropriate MIME :</label>
+		
+	 	<select name="mime">
+	 		<option value="application" selected>application</option>
+			<option value="audio">audio</option>
+			<option value="font">font</option>
+			<option value="image">image</option>
+			<option value="message">message</option>
+			<option value="model">model</option>
+			<option value="multipart">multipart</option>
+			<option value="text">text</option>
+			<option value="video">video</option>
+	 	 </select>
+	 	 
+	 	<label for="submime">subtype :</label>
+		<input pattern="[a-z+-]{1,10}" type="text" id="submime" name="submime"><br><br>
+	 	
+		
+			 <input type="submit" value="Submit">
+	
+	</form>
+</div>
+</body>
+</html>

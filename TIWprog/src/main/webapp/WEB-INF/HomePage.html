@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>HomePage</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/CartelleHomePage.css" th:href="@{/css/CartelleHomePage.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/ImpostazionePagina.css" th:href="@{/css/ImpostazionePagina.css}" />
+</head>
+<body>
+<div class="topZone">
+	<a class="topButton" href="./GestioneContenuti.html" id="gestCon" th:href="@{/GestioneContenuti}">Gestione Contenuti</a>
+	<a class="topButton" href="./Login.html" th:href="@{/logout}" th:text="${'logout  ('+ session.user+')'}">Logout (user)</a>
+	<a class="topButton" th:href="@{${lastPage}(back='true')}">Go back</a>
+</div>
+
+<div id="zonaCartelle">
+	<h2 th:if="${cartelle==null && !spostamento}" th:text="'Crea la tua prima cartella per aggiungere dei file'"> </h2>
+	<div class="cartDiv"  th:if="${cartelle!=null && !spostamento}">
+		<h1>Home Page</h1>
+	
+		<ul th:remove="all-but-first" >
+			<li class="cartelle" th:classappend="${cStat.odd}? '':'cartelle2'" th:each="cartella, cStat:${cartelle}" >
+			   <p th:text="${'Cartella '+cStat.count }">n cartella</p>
+			   <ul th:if="${cartella.subCartelle!=null}">
+			   	<li class="subCartella" th:each="subId, bStat : ${cartella.subCartelle}">
+			   	  <a href="./Documenti.html" th:href="@{/Documenti(subCartellaId=${subId} ,cartellaId=${cartella.CartellaId}, nSubCartella=${cStat.count}+''+${bStat.count})}  " th:text="${'sottoCartella '+cStat.count+''+bStat.count }"> 
+			   	   subCartella 01</a>
+			   	</li>
+			   </ul>
+			</li>
+			<li class="cartelle cartelle2"  >
+			   <p >cartella 1</p>
+			   <ul >
+			   	<li class="subCartella" >
+			   	  <a href="./Documenti.html"> subCartella 11
+			   	  </a>
+			   	</li>
+			   	<li class="subCartella" >
+			   	  <a href="./Documenti.html"> subCartella 12
+			   	  </a>
+			   	</li>
+			   </ul>
+			</li>
+			<li class="cartelle" >
+			   <p >cartella 2</p>
+			   <ul >
+			   	<li class="subCartella" >
+			   	  <a href="./Documenti.html"> subCartella 21
+			   	  </a>
+			   	</li>
+			   	<li class="subCartella" >
+			   	  <a href="./Documenti.html"> subCartella 22
+			   	  </a>
+			   	</li>
+			   	<li class="subCartella" >
+			   	  <a href="./Documenti.html"> subCartella 23 
+			   	  </a>
+			   	</li>
+			   </ul>
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="cartDiv" th:if="${spostamento}">
+		<ul>
+			<li class="cartelle" th:each="cartella, cStat:${cartelle}" >
+			   <p th:text="${'Cartella '+cStat.count }">n cartella</p>
+			   <ul th:if="${cartella.subCartelle!=null}">
+			   	<li class="subCartella" th:each="subId, bStat : ${cartella.subCartelle}">
+			   		<p style ="color:red;" th:if="${session.subCartellaId==subId}" th:text="${'sottoCartella '+bStat.count+''+cStat.count+'(ORIGINE)' }">
+			   		</p>
+			   	  <a th:if="${session.subCartellaId!=subId}" th:href="@{/SpostaFile(subCartellaId=${subId} ,cartellaId=${cartella.CartellaId})}  " th:text="${'sposta in sottoCartella '+bStat.count+''+cStat.count }"> 
+			   	  </a>
+			   	</li>
+			   </ul>
+			</li>
+		</ul>
+		
+
+	</div>
+
+
+	
+</div>
+
+</body>
+</html>

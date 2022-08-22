@@ -1,11 +1,13 @@
 package it.polimi.tiw.beans;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Cartella {
 	private int CartellaId;
 	private int UtenteId;
 	private Date dataDiCreazione;
+	private List<Integer> subCartelle;
 	
 	public int getCartellaId() {
 		return CartellaId;
@@ -24,6 +26,12 @@ public class Cartella {
 	}
 	public void setDataDiCreazione(Date dataDiCreazione) {
 		this.dataDiCreazione = dataDiCreazione;
+	}
+	public List<Integer> getSubCartelle() {
+		return subCartelle;
+	}
+	public void setSubCartelle(List<Integer> subCartelle) {
+		this.subCartelle = subCartelle;
 	}
 
 

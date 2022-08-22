@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+.fZone {
+    margin: 15vw;
+    margin-top: 5vh;
+    margin-left: 10vw;
+    box-shadow: 0 0 9px 0px grey;
+    padding: 15px;
+}
+div#funnyLine {
+    border: solid 1px;
+    box-shadow: 0 0 4px 0px slategrey;
+}
+div.fZone > p {
+    font-size: x-large;
+    margin-left: 69px;
+}
