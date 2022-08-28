@@ -28,8 +28,8 @@
 		<ul th:if="${files!=null}" th:remove="all-but-first" >
 			<li class="fileCon" th:each="file : ${files}" >
 					<p th:text="${file.filename}"> file x</p>
-					<a class="fileButton" href="./Documento.html" th:href="@{/AccediDocumento(fileId=${file.fileId})}">>accedi  </a>
-					<a class="fileButton" href="./Documento.html" th:href="@{/HomePage(fileId=${file.fileId}, spostamento=true)}">>sposta</a>
+					<a class="fileButton" href="./Documento.html" th:href="@{/AccediDocumento(fileId=${file.idDocumento})}">>accedi  </a>
+					<a class="fileButton" href="./Documento.html" th:href="@{/HomePage(fileId=${file.idDocumento}, spostamento=true,fileName=${file.fileName})}">>sposta</a>
 			</li>
 			<li class="fileCon" >
 					<p > file 2</p>

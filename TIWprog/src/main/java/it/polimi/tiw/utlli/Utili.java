@@ -12,16 +12,34 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 public class Utili {
-	private static String[] regexCancel = new String[] {"-","\\+","/","\\*","\\[","\\^","\\]",
-			"\\{","\\}","\\.","=","<",">",",","'","\"",";",":","%","$","&",")","(","?","|","!"};
+	private static String[] regexCancel = {"-","\\+","/","\\*","\\[","\\^","\\]",
+			"\\{","\\}",".","=","<",">",",","'","\"","%","$","&",")","(","?","|","!"};
 	//private static String regexCancel="\"£$%&/()=+-*/<>{}][',.!|";
 	private static String[] susWord =
 		{"SELECT", "DROP", "INSERT","DELETE","AND","WHERE",
 				"OR","HAVING","GROUP"};
-	public static void cleanString(String userInput) {
+	
+	public static String cleanString(String userInput) {
+		String out=userInput;
+		String asl="+";
 		for(int i=0;i<regexCancel.length;i++) {
-			userInput.replaceAll(regexCancel[i],"");
+			asl="\\"+regexCancel[i];
+			out = out.replace( regexCancel[i],asl );
 		}
+		for(int i=0;i<susWord.length;i++){
+			if(out.contains(susWord[i])) {
+				
+				out=out.replace(susWord[i],"-"+susWord[i]+"-" );
+			}
+		}
+		return out;
+	}
+	public static String getOriginalStr(String inputFromDb) {
+		String out=inputFromDb;
+		for(int i=0;i<susWord.length;i++){		
+			out=out.replace("-"+susWord[i]+"-",susWord[i] );
+		}
+		return out;
 	}
 	public static boolean sporca(String str) {
 		return containsSusCharacters(str)||containsSusWords(str);
@@ -36,7 +54,7 @@ public class Utili {
 	}
 	public static boolean containsSusWords(String str) {
 		for (int i = 0; i < susWord.length; i++) {
-			if(str.contains(susWord[i]))
+			if(str.toUpperCase().contains(susWord[i]))
 				return true;
 		}
 		return false;

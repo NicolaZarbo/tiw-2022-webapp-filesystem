@@ -7,7 +7,7 @@ public class SottoCartella {
 	private int subCartellaId;
 	private int cartellaId;
 	private List<Integer> fileIds;
-	private List<File> files;
+	private List<Documento> files;
 	private Date dataDiCreazione;
 	
 	
@@ -35,10 +35,10 @@ public class SottoCartella {
 	public void setFileIds(List<Integer> fileIds) {
 		this.fileIds = fileIds;
 	}
-	public List<File> getFiles() {
+	public List<Documento> getFiles() {
 		return files;
 	}
-	public void setFiles(List<File> files) {
+	public void setFiles(List<Documento> files) {
 		this.files = files;
 	}
 }

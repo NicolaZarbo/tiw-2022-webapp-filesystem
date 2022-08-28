@@ -16,10 +16,10 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import enumerazioni.HtmlPath;
-import it.polimi.tiw.DAO.FileDao;
+import it.polimi.tiw.DAO.DaoDocumenti;
 import it.polimi.tiw.DAO.SubCartellaDao;
-import it.polimi.tiw.DAO.UDao;
-import it.polimi.tiw.beans.File;
+import it.polimi.tiw.DAO.DaoUtenti;
+import it.polimi.tiw.beans.Documento;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
 
@@ -31,14 +31,14 @@ public class FileControl extends HttpServlet {
 	private static final long serialVersionUID = 1L; 
 	private TemplateEngine tEngine; 
 	private Connection connessione;
-    private FileDao fDao; 
+    private DaoDocumenti fDao; 
     private SubCartellaDao subDao;
     
     
     public void init() {
     	connessione= DbConnection.getConnection();
     	tEngine=Utili.getTemplateEngine(getServletContext());
-    	fDao=new FileDao(connessione);
+    	fDao=new DaoDocumenti(connessione);
     	subDao=new SubCartellaDao(connessione);
     	 
     }
@@ -64,7 +64,7 @@ public class FileControl extends HttpServlet {
 		
 		String fileIDstr=request.getParameter("fileId");
 		int fileId=0;
-		if(userName==null ||subCartellaId==null ||cartellaId==null || sessione.isNew()) {
+		if(userName==null ||subCartellaId==null || sessione.isNew()) {
 			response.sendRedirect(getServletContext().getContextPath()+"");
 	    	return;
 	    }
@@ -80,7 +80,7 @@ public class FileControl extends HttpServlet {
 		}
 		try {
 			
-			File file=fDao.getFile(fileId);
+			Documento file=fDao.getFile(fileId);
 			if(file==null) {
 				response.sendError(404, "file not found");
 				return;
@@ -93,7 +93,7 @@ public class FileControl extends HttpServlet {
 			Utili.gestioneCronologia(sessione, ctx, request,"/AccediDocumento?" +request.getQueryString());
 
 			ctx.setVariable("subCartellaId", subCartellaId);
-			ctx.setVariable("cartellaId",cartellaId);
+			//ctx.setVariable("cartellaId",cartellaId);
 			ctx.setVariable("nSubCartella",nSubCartella);
 			ctx.setVariable("file", file);
 			tEngine.process(HtmlPath.DOCUMENTO.getUrl(), ctx,response.getWriter());

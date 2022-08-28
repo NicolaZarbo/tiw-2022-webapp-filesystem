@@ -12,7 +12,6 @@
 <div class="topZone">
 	<a class="topButton" href="./GestioneContenuti.html" id="gestCon" th:href="@{/GestioneContenuti}">Gestione Contenuti</a>
 	<a class="topButton" href="./Login.html" th:href="@{/logout}" th:text="${'logout  ('+ session.user+')'}">Logout (user)</a>
-	<a class="topButton" th:href="@{${lastPage}(back='true')}">Go back</a>
 </div>
 
 <div id="zonaCartelle">
@@ -65,6 +64,7 @@
 
 
 	<div class="cartDiv" th:if="${spostamento}">
+		<h1 th:text="${'Sposta il file '+fileName}"></h1>
 		<ul>
 			<li class="cartelle" th:each="cartella, cStat:${cartelle}" >
 			   <p th:text="${'Cartella '+cStat.count }">n cartella</p>

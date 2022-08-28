@@ -1,6 +1,7 @@
 package it.polimi.tiw.controllers;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,7 +17,10 @@ import org.thymeleaf.context.WebContext;
 
 import enumerazioni.HtmlPath;
 import it.polimi.tiw.DAO.CartellaDao;
+import it.polimi.tiw.DAO.DaoDocumenti;
+import it.polimi.tiw.DAO.SubCartellaDao;
 import it.polimi.tiw.beans.Cartella;
+import it.polimi.tiw.beans.Documento;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
 
@@ -28,12 +32,14 @@ public class HomeC extends HttpServlet {//stampa tutte cartelle e sub-cartelle
 	private static final long serialVersionUID = 1L;
     private TemplateEngine tEngine;
     private CartellaDao dao;
+    private Connection connessione;
     public HomeC() {
         super();
     }
     public void init() {
+    	connessione=DbConnection.getConnection();
     	tEngine=Utili.getTemplateEngine(getServletContext());
-    	dao=new CartellaDao(DbConnection.getConnection());
+    	dao=new CartellaDao(connessione);
     	
     }
 
@@ -44,7 +50,8 @@ public class HomeC extends HttpServlet {//stampa tutte cartelle e sub-cartelle
 	    String userName=(String)sessione.getAttribute("user");
 	    
 	    String fileIdStr=request.getParameter("fileId");
-	    
+	    String fileName=request.getParameter("fileName");
+
 	    if(userName==null || sessione.isNew()) {
 	    	response.sendRedirect(getServletContext().getContextPath()+"");
 	    	return;
@@ -65,9 +72,8 @@ public class HomeC extends HttpServlet {//stampa tutte cartelle e sub-cartelle
 	    
 		WebContext ctx = new WebContext(request, response, getServletContext(),request.getLocale());
 		
-		if(request.getParameter("spostamento")!=null && fileIdStr!=null) {
+		if(request.getParameter("spostamento")!=null && fileIdStr!=null && fileName!=null ) {
 			if(!Utili.sporca(fileIdStr)) {
-				ctx.setVariable("spostamento", true);
 				int fileID=0;
 				try {
 					fileID=Integer.parseInt(fileIdStr);
@@ -75,7 +81,25 @@ public class HomeC extends HttpServlet {//stampa tutte cartelle e sub-cartelle
 					response.sendError(403, "expected integer value for fileID");
 					return;
 				}
-				sessione.setAttribute("fileId",fileID );
+				DaoDocumenti daoDoc=new DaoDocumenti(connessione);
+				SubCartellaDao subDao= new SubCartellaDao(connessione);
+				try {
+					Documento doc=daoDoc.getFile(fileID);
+					if(doc==null) {
+						response.sendError(404, "no file with such id");
+						return;
+					}
+					if(!doc.getFileName().equalsIgnoreCase(fileName) || !subDao.isSottoCartellaDiUtente( doc.getSubCartellaId(),userName)) {
+						response.sendError(403, "something weird happend, try moving a file you own");
+						return;
+					}
+					ctx.setVariable("fileName", fileName);
+					ctx.setVariable("spostamento", true);
+					sessione.setAttribute("fileId",fileID );
+				} catch (SQLException e) {
+					response.sendError(500, "db error");
+					return;
+				}
 			}
 		}
 		

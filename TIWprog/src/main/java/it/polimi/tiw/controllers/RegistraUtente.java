@@ -13,7 +13,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import enumerazioni.HtmlPath;
-import it.polimi.tiw.DAO.UDao;
+import it.polimi.tiw.DAO.DaoUtenti;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
 
@@ -24,11 +24,11 @@ import it.polimi.tiw.utlli.Utili;
 public class RegistraUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine tEngine;
-    private UDao dao; 
+    private DaoUtenti dao; 
     
     public void init() {
     	tEngine=Utili.getTemplateEngine(getServletContext());
-    	dao=new UDao(DbConnection.getConnection());
+    	dao=new DaoUtenti(DbConnection.getConnection());
     	
     }
     public void destroy() {
@@ -63,8 +63,8 @@ public class RegistraUtente extends HttpServlet {
 			response.sendError(400, "missing input");	
 			return;
 		}
-		if(user.length()==0||password.length()==0) {
-			response.sendError(400, "missing input");	
+		if(user.length()<2||user.length()>44||password.length()<8 ||password.length()>12) {
+			response.sendError(400, "wrong input lenght");	
 			return;
 		}
 			

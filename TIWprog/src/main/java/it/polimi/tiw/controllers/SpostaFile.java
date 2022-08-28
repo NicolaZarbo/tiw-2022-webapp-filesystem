@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.polimi.tiw.DAO.FileDao;
+import it.polimi.tiw.DAO.DaoDocumenti;
 import it.polimi.tiw.DAO.SubCartellaDao;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
@@ -23,12 +23,12 @@ import it.polimi.tiw.utlli.Utili;
 public class SpostaFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connessione;
-    private FileDao fDao; 
+    private DaoDocumenti fDao; 
     private SubCartellaDao subDao;
     
     public void init() {
     	connessione= DbConnection.getConnection();
-    	fDao=new FileDao(connessione);
+    	fDao=new DaoDocumenti(connessione);
     	subDao=new SubCartellaDao(connessione);
     }
     public void destroy() {
@@ -53,7 +53,7 @@ public class SpostaFile extends HttpServlet {
 		 String userName=(String)sessione.getAttribute("user");
 		 
 		 if(userName==null || sessione.isNew()) {
-		   	response.sendRedirect(getServletContext().getContextPath()+"/log");
+		   	response.sendRedirect(getServletContext().getContextPath()+"");
 		   	return;
 		 }
 		 if(Utili.sporca(userName) || fileId==null || subCstr==null) {

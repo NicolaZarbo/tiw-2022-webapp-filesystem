@@ -34,7 +34,7 @@
 				<a class="createButton" th:href="@{/CreaSottoCartella(cartellaId=${cartella.CartellaId})}" >Crea Nuova Sotto-Cartella</a>
 			   <ul th:if="${cartella.subCartelle!=null}">
 			   	<li class="subCartella" th:each="sub, bStat : ${cartella.subCartelle}">
-			   	  <a class="createButton" href="./FileCreation.html" th:href="@{/CreaFile(subCartella=${sub})}  " th:text="${'crea file in sottoCartella '+bStat.count+''+cStat.count }"> 
+			   	  <a class="createButton" href="./FileCreation.html" th:href="@{/CreaFile(subCartella=${sub}, nSubCartella=${cStat.count+''+bStat.count})}  " th:text="${'crea file in sottoCartella '+bStat.count+''+cStat.count }"> 
 			   	  Crea File in sub-cartella 11</a>
 			   	</li>
 			   </ul>

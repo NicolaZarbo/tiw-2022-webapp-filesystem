@@ -52,7 +52,7 @@ public class CartellaDao {
 
 	
 	public void creaCartella(String User) throws SQLException{
-		UDao ut=new UDao(connesione);
+		DaoUtenti ut=new DaoUtenti(connesione);
 		int id=ut.getUtenteFromUserName(User).getId();
 	
 		String query = "INSERT into  cartella ( idutente,  dataCreazione) VALUES (?,?) ";

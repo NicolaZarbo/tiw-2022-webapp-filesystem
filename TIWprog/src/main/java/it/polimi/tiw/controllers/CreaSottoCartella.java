@@ -17,7 +17,7 @@ import org.thymeleaf.context.WebContext;
 import enumerazioni.HtmlPath;
 import it.polimi.tiw.DAO.CartellaDao;
 import it.polimi.tiw.DAO.SubCartellaDao;
-import it.polimi.tiw.DAO.UDao;
+import it.polimi.tiw.DAO.DaoUtenti;
 import it.polimi.tiw.beans.Cartella;
 import it.polimi.tiw.beans.Utente;
 import it.polimi.tiw.utlli.DbConnection;
@@ -74,7 +74,7 @@ public class CreaSottoCartella extends HttpServlet {
 		
 		
 		try {
-			UDao utDAO=new UDao(connessione);
+			DaoUtenti utDAO=new DaoUtenti(connessione);
 			Utente utente=utDAO.getUtenteFromUserName(userName);
 			CartellaDao cDAO=new CartellaDao(connessione);
 			Cartella folder=cDAO.getCartella(cartellaId);

@@ -19,7 +19,7 @@
 	<h1>Crea File</h1>
 	<form method="post" th:action="@{/CreaFile}">
 		<label for="filename">File Name (max 15 char):</label>
-		<input pattern="[A-Za-z0-9_]{1,15}[.]{1,1}[a-z]{1,4}" type="text" id="filename" name="filename"><br><br>
+		<input pattern="[A-Za-z0-9_]{1,15}[.]{0,1}[a-z]{1,4}" type="text" id="filename" name="filename"><br><br>
 		<label for="mime">Select the appropriate MIME :</label>
 		
 	 	<select name="mime">
@@ -34,8 +34,10 @@
 			<option value="video">video</option>
 	 	 </select>
 	 	 
-	 	<label for="submime">subtype :</label>
+	 	<label for="submime">subtype(max 10 char) :</label>
 		<input pattern="[a-z+-]{1,10}" type="text" id="submime" name="submime"><br><br>
+		<label for="sommario">Sommario (max 255 char) :</label>
+		<input pattern="[a-zA-Z0-9,.;:_ ]{0,255}" type="text" id="sommario" name="sommario"><br><br>
 	 	
 		
 			 <input type="submit" value="Submit">

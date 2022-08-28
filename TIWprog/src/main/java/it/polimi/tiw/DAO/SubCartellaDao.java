@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import it.polimi.tiw.beans.Cartella;
-import it.polimi.tiw.beans.File;
+import it.polimi.tiw.beans.Documento;
 import it.polimi.tiw.beans.SottoCartella;
 
 public class SubCartellaDao {
@@ -29,8 +29,8 @@ private Connection connesione;
 				if (!result.isBeforeFirst()) // no results, credential check failed
 					return null;
 				else {
-					FileDao fDao=new FileDao(connesione);
-					List<File> files=fDao.getFilesOfSubFolder(subCartellaId);
+					DaoDocumenti fDao=new DaoDocumenti(connesione);
+					List<Documento> files=fDao.getFilesOfSubFolder(subCartellaId);
 					result.next();
 					SottoCartella folder=new SottoCartella();
 					folder.setSubCartellaId(subCartellaId);

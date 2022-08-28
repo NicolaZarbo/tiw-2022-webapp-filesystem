@@ -11,13 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import com.mysql.cj.util.StringUtils;
 
-import it.polimi.tiw.DAO.UDao;
+import it.polimi.tiw.DAO.DaoUtenti;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
 
@@ -28,11 +29,11 @@ import it.polimi.tiw.utlli.Utili;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TemplateEngine tEngine;
-    private UDao dao; 
+    private DaoUtenti dao; 
     
     public void init() {
     	tEngine=Utili.getTemplateEngine(getServletContext());
-    	dao=new UDao(DbConnection.getConnection());
+    	dao=new DaoUtenti(DbConnection.getConnection());
     	
     }
     public void destroy() {
@@ -56,6 +57,12 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user=(request.getParameter("username"));
 		String password=(request.getParameter("password"));
+		
+		
+		if(password==null||user==null) {
+			response.sendError(400,"missing input");
+			return;
+		}
 		if(Utili.sporca(password) || Utili.sporca(user)) {
 			response.sendError(400, "bad input");	
 			return;
@@ -68,7 +75,13 @@ public class Login extends HttpServlet {
 				tEngine.process(path, ctx,response.getWriter());
 				return;
 			}
-			request.getSession().setAttribute("user", user);
+			
+			HttpSession ss= request.getSession();
+			if(!ss.isNew()) {
+				ss.invalidate();
+				ss=request.getSession();
+			}
+			ss.setAttribute("user", user);
 			String path = getServletContext().getContextPath() + "/HomePage";
 			response.sendRedirect(path);
 			

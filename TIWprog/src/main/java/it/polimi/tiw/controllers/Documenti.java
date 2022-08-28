@@ -17,9 +17,9 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.standard.processor.StandardSubstituteByTagProcessor;
 
 import enumerazioni.HtmlPath;
-import it.polimi.tiw.DAO.FileDao;
+import it.polimi.tiw.DAO.DaoDocumenti;
 import it.polimi.tiw.DAO.SubCartellaDao;
-import it.polimi.tiw.beans.File;
+import it.polimi.tiw.beans.Documento;
 import it.polimi.tiw.beans.SottoCartella;
 import it.polimi.tiw.utlli.DbConnection;
 import it.polimi.tiw.utlli.Utili;
@@ -54,10 +54,10 @@ public class Documenti extends HttpServlet {//stampa file di sottocartella
 		 HttpSession sessione=request.getSession();
 		 String userName=(String)sessione.getAttribute("user");
 		 
-		 String cartStr=request.getParameter("cartellaId");
+		 //String cartStr=request.getParameter("cartellaId");
 		 String subCStr=request.getParameter("subCartellaId");
 		 String subN=request.getParameter("nSubCartella");
-		 int cartellaId=0;
+		 //int cartellaId=0;
 		 int subCartellaId=0;
 		 int subNumber=0;
 		 
@@ -67,12 +67,12 @@ public class Documenti extends HttpServlet {//stampa file di sottocartella
 			response.sendRedirect(getServletContext().getContextPath()+"");
 			return;
 		 }
-	     if(Utili.sporca(userName) ||cartStr==null ||subCStr==null ||subN==null) {
+	     if(Utili.sporca(userName)  ||subCStr==null ||subN==null) {
 	    	response.sendError(400, "bad or missing input");	
 			return;
 		 }
 	     try {
-	    	 cartellaId=Integer.parseInt(cartStr);
+	    	// cartellaId=Integer.parseInt(cartStr);
 	    	 subCartellaId=Integer.parseInt(subCStr);
 	    	 subNumber=Integer.parseInt(subN);
 	     }catch (NumberFormatException e) {
@@ -85,11 +85,11 @@ public class Documenti extends HttpServlet {//stampa file di sottocartella
 	    		response.sendError(401, "Ownership mismatch");	
 				return;
 	    	}
-	    	sessione.setAttribute("cartellaId", cartellaId);//per controlli quando viene spostato un file
+	    	//sessione.setAttribute("cartellaId", cartellaId);//per controlli quando viene spostato un file
 			sessione.setAttribute("subCartellaId", subCartellaId);
 			sessione.setAttribute("nSubCartella", subNumber);
 			
-	    	List<File> files= dao.getCartellaAndFiles(subCartellaId).getFiles();
+	    	List<Documento> files= dao.getCartellaAndFiles(subCartellaId).getFiles();
 	    	
 			WebContext ctx = new WebContext(request, response, getServletContext(),request.getLocale());
 			Utili.gestioneCronologia(sessione, ctx, request,"/Documenti?" +request.getQueryString());
