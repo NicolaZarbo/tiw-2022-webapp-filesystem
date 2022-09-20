@@ -25,7 +25,7 @@ public class RedirectLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TemplateEngine tEngine=Utili.getTemplateEngine(getServletContext());
-		String path="WEB-INF/Login.html";
+		//String path="WEB-INF/Login.html";
 		WebContext ctx = new WebContext(request, response, getServletContext(),request.getLocale());
 		tEngine.process(HtmlPath.LOGIN.getUrl(), ctx,response.getWriter());
 	}

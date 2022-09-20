@@ -108,7 +108,7 @@ public class CreaFile extends HttpServlet {
 	    	if(somm.length()==0) somm="no sommario";
 	    	somm=Utili.cleanString(somm);
 	    }else somm="no sommario";
-	    System.out.println(somm);
+	   // System.out.println(somm);
 	    if(submime==null ||mime==null ||fName==null) {
 			response.sendRedirect(getServletContext().getContextPath() + "/CreaFile?subCartella="+subCartellaId);
 			return;

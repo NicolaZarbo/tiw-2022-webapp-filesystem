@@ -24,11 +24,11 @@ import it.polimi.tiw.utlli.Utili;
 @WebServlet("/CreaCartella")
 public class CreaCartella extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TemplateEngine tEngine;
+	//private TemplateEngine tEngine;
     private CartellaDao dao; 
     
     public void init() {
-    	tEngine=Utili.getTemplateEngine(getServletContext());
+    	//tEngine=Utili.getTemplateEngine(getServletContext());
     	dao=new CartellaDao(DbConnection.getConnection());
     	
     }
