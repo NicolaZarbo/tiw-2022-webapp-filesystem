@@ -1,0 +1,6 @@
+<div class="fZone">
+	<h1 th:text="${'FILE :'+file.fileName}">FILE : Documento X</h1>
+	<div id="funnyLine"></div>
+	<p th:text="${'MIME :'+file.mime}">MIME : xx/xxx</p>
+	<p th:text="${'Data Creazione :'+file.dataCreazione}">Data Creazione : 0000/00/00</p>
+</div>	

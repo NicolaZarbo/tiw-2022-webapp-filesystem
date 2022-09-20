@@ -1,0 +1,22 @@
+
+<div class="cont">
+
+	<h1>Registrati</h1>
+
+	<form method="post" id="form">
+		<label for="username">UserName :</label> <input
+			pattern="[A-Za-z0-1]{2,44}" type="text" id="username" name="username"><br>
+		<br> <label for="mail">Email :</label> <input type="email"
+			id="mail" name="mail"><br> <br> <label
+			for="password">Password (8-12 characters) :<a id="mostra">Mostra</a></label>
+		<input pattern="[A-Za-z0-1]{8,12}" type="password" id="pwd"
+			name="password"><br> <label for="password2">Repeat
+			password :</label> <input pattern="[A-Za-z0-1]{8,12}" type="password"
+			id="pwd2" name="password2"><br>
+	</form>
+	<button id="formButton" onclick="checkRegistrazione()">submit</button>
+	<p class="alert" id="err"></p>
+	<button id="reg" onclick="showLogin()">Possiedi gia un
+		account?</button>
+
+</div>
